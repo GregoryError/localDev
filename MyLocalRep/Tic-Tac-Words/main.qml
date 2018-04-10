@@ -18,11 +18,6 @@ Window {
     title: qsTr("tic-tac")
 
 
-
-
-
-
-
     Rectangle{
         id: mainfield
         width: Screen.width
@@ -35,20 +30,21 @@ Window {
             height: Screen.height / 10
             //anchors.top: mainfield.top
             anchors.bottom: mainfield.bottom
-            anchors.bottomMargin: 150
+            anchors.bottomMargin: 40
             anchors.horizontalCenter: mainfield.horizontalCenter
             anchors.topMargin: 50
             background: Rectangle{
                 anchors.fill: parent
+                radius: 4
                 color: "#73e6d9"
                 Text {
                     anchors.centerIn: parent
                     anchors.leftMargin: 25
                     anchors.topMargin: 10
                     font.family: "Noto Sans CJK KR Thin"
-                    font.pointSize: 25
+                    font.pointSize: 35
                     color: "white"
-                    text: "Начать"
+                    text: "New"
                 }
             }
             onClicked: {
@@ -58,7 +54,7 @@ Window {
                 roword.visible = true
 
                 rep.model = backend.howmanyLetter()
-                roword.columns = head.width / (Screen.height / 9 / 2) - 1
+                roword.columns = head.width / (Screen.height / 9 / 2) - 3
 
                 //console.log((head.width / (Screen.height / 9)) - 2)
 
@@ -73,12 +69,15 @@ Window {
             id: roword
             //columns: 8
             anchors.topMargin: 50
-            width: (Screen.height / 9) / 2
-            height: (Screen.height / 9) / 2
+            anchors.bottomMargin: height * 5
+            anchors.rightMargin: 25
+            anchors.leftMargin: 25
+            width: (Screen.height / 9) / 2 +5
+            height: (Screen.height / 9) / 2 +5
 
-            x: Screen.height / 9 - 20
+            x: Screen.height / 9 / 2 - 10
             //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: mainfield.top
+            anchors.bottom: startButton.top
             spacing: 3
             visible: false
 
@@ -93,9 +92,10 @@ Window {
 
                    background: Rectangle{
                        anchors.fill: parent
-                       border.width: 3
-                       border.color: "#4697ee"
-                       color: "#720fa0"
+                       //border.width: 3
+                       //border.color: "#4697ee"
+                       radius: 3
+                       color: "#4e0fa0"
 
                    }
                 
@@ -104,8 +104,8 @@ Window {
                        anchors.centerIn: parent
                       // anchors.leftMargin: 25
                       // anchors.topMargin: 10
-                       font.family: "Abyssinica SIL"
-                       font.pointSize: (Screen.height / 9) / 2 - 20
+                       font.family: "Lato Light"
+                       font.pointSize: (Screen.height / 9) / 2 -10
                        color: "white"
 
                        text: backend.gimmeLetter()
@@ -114,37 +114,13 @@ Window {
                        
                        }
 
-
-                      // layer.enabled: true
-                      //                     layer.effect: DropShadow {
-                      //                         id: rowhadow
-                      //                         transparentBorder: true
-                      //                         //horizontalOffset: 8
-                      //                         //verticalOffset: 8
-                      //                         samples: 45
-                      //                         //spread: 0.6
-                      //                         radius: 30
-                      //                         color: "gray"
-                      //                     }
-                      //
-                      //
-
-
        }
-                
-
-                
+                             
                 
             }
 
 
-
-
-
         }
-
-
-
 
     }
 
@@ -155,6 +131,16 @@ Window {
         width: Screen.width
         height: Screen.height / 9 + 10
         color: "#43c4b5"
+        Text {
+            id: headTxt
+            anchors.verticalCenter: head.verticalCenter
+            anchors.left: head.left
+            anchors.leftMargin: 20
+            font.family: "Noto Sans CJK KR Thin"
+            font.pointSize: 20
+            color: "white"
+            text: "Tic-tac-words"
+        }
         layer.enabled: true
                     layer.effect: DropShadow {
                         id: headshadow
@@ -163,7 +149,7 @@ Window {
                         verticalOffset: 8
                         samples: 20
                         //spread: 0.6
-                        radius: 15
+                        radius: 10
                         color: "gray"
                     }
 
@@ -237,20 +223,6 @@ Window {
                                            origin.y: 5
                                        }
                                    ]
-
-
-                                   // layer.enabled: true
-                                   //                     layer.effect: DropShadow {
-                                   //                         id: rowhadow
-                                   //                         transparentBorder: true
-                                   //                         horizontalOffset: -50
-                                   //                         //verticalOffset: 20
-                                   //                         samples: 50
-                                   //                         //spread: 0.1
-                                   //                         //radius: 50
-                                   //                         color: "#804a94ff"
-                                   //                     }
-                                   //
 
 
 
