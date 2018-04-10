@@ -18,17 +18,24 @@ Window {
     title: qsTr("tic-tac")
 
 
+
+
+
+
+
     Rectangle{
         id: mainfield
         width: Screen.width
         height: Screen.height - head.height
         anchors.top: head.bottom
-        
+
         Button{
             id: startButton
             width: Screen.width / 2 - 15
             height: Screen.height / 10
-            anchors.top: mainfield.top
+            //anchors.top: mainfield.top
+            anchors.bottom: mainfield.bottom
+            anchors.bottomMargin: 150
             anchors.horizontalCenter: mainfield.horizontalCenter
             anchors.topMargin: 50
             background: Rectangle{
@@ -51,7 +58,7 @@ Window {
                 roword.visible = true
 
                 rep.model = backend.howmanyLetter()
-                roword.columns = (head.width / (Screen.height / 9)) - 2
+                roword.columns = head.width / (Screen.height / 9 / 2) - 1
 
                 //console.log((head.width / (Screen.height / 9)) - 2)
 
@@ -66,12 +73,12 @@ Window {
             id: roword
             //columns: 8
             anchors.topMargin: 50
-            width: Screen.height / 9
-            height: Screen.height / 9
+            width: (Screen.height / 9) / 2
+            height: (Screen.height / 9) / 2
 
             x: Screen.height / 9 - 20
             //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: startButton.bottom
+            anchors.top: mainfield.top
             spacing: 3
             visible: false
 
@@ -87,8 +94,8 @@ Window {
                    background: Rectangle{
                        anchors.fill: parent
                        border.width: 3
-                       border.color: "white"
-                       color: "#73e6d9"
+                       border.color: "#4697ee"
+                       color: "#720fa0"
 
                    }
                 
@@ -98,7 +105,7 @@ Window {
                       // anchors.leftMargin: 25
                       // anchors.topMargin: 10
                        font.family: "Abyssinica SIL"
-                       font.pointSize: Screen.height / 9 - 33
+                       font.pointSize: (Screen.height / 9) / 2 - 20
                        color: "white"
 
                        text: backend.gimmeLetter()

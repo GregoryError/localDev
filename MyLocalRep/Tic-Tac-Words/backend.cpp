@@ -47,6 +47,7 @@ backend::backend(QObject *parent) : QObject(parent)
 //===================================================================================
 
  //  qDebug() << list[randomBetween(0, list.size())];
+    ready = true;
 
 }
 
@@ -140,6 +141,11 @@ int backend::randomBetween(int low, int high)
 {
     qsrand(QDateTime::currentMSecsSinceEpoch());
     return (qrand() % ((high + 1) - low) + low);
+}
+
+bool backend::readyWork()
+{
+    return ready;
 }
 
 void backend::initWord()

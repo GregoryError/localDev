@@ -22,6 +22,7 @@ public:
     QString startWord;
     int timesWordCall;
     unsigned int points;
+    bool ready = false;
 
 
 private:
@@ -36,6 +37,7 @@ private:
 signals:
 
 public slots:
+    bool readyWork();
     void initWord();
     int howmanyLetter();
     QChar gimmeLetter();
