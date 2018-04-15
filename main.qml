@@ -25,18 +25,6 @@ Window {
         anchors.top: head.bottom
 
 
-
-
-        Grid{
-            id: answerGrid
-            anchors.topMargin: 50
-            width: (main.height / 9) / 2 +5
-            height: (main.height / 9) / 2 +5
-            anchors.top: head.bottom
-
-
-        }
-
         Button{
             id: startButton
             width: main.width / 2 - 15
@@ -66,16 +54,78 @@ Window {
 
                 roword.visible = true
 
-                rep.model = backend.howmanyLetter()
+                rep.model = backend.howManyLetter()
                 roword.columns = head.width / (main.height / 9 / 2) - 3
 
-                //console.log((head.width / (main.height / 9)) - 2)
+                listModel.clear()
 
+               // if(listModel)
+               // {
+               // for (var i=0; i < listModel.count; ++i)
+               // {
+               //     listModel.remove(i);
+               //     i=0;
+               //
+               // }
+               // listModel.remove(0);
+               // }
+               //
+
+
+                //listModel.remove()
+                //console.log((head.width / (main.height / 9)) - 2)
 
 
             }
             
         }
+
+
+//=================================================================
+// expirement
+
+        ListView {
+            id: listView1
+            interactive: true
+            orientation: ListView.Horizontal
+            y: head.y + 40
+            x: 40
+
+            implicitWidth: main.width - 80
+
+
+           // width: main.width - 10
+            height: (main.height / 9) // 2 +5
+
+            delegate: Item {
+                id: item_2
+                 width: (main.height / 9) / 2 +5
+                 height: width
+
+            Button {
+
+                    anchors.fill: parent
+                    anchors.margins: 3
+
+
+                    text: id
+                    font.family: "Lato Light"
+                    font.pointSize: (main.height / 9) / 2 -10
+
+                    onClicked: {
+                        textIndex.text = index
+                    }
+                }
+            }
+
+            model: ListModel {
+                id: listModel // setting an id
+            }
+
+
+}
+
+//================================================================
 
 
         Grid{
@@ -88,7 +138,7 @@ Window {
             width: (main.height / 9) / 2 +5
             height: (main.height / 9) / 2 +5
 
-            x: main.height / 9 / 2 - 10
+            x: main.height / 9 / 2
             //anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: startButton.top
             spacing: 3
@@ -124,17 +174,23 @@ Window {
                        text: backend.gimmeLetter()
                    }
                        onClicked: {
+
+                           if(!listView1.positionViewAtEnd())
+                            listModel.append({id: buttontxt.text})
+                           else listView1.visible = false
+
                        
                        }
 
-       }
+                  }
 
-            }
-
+             }
 
         }
 
     }
+
+
 
     Rectangle{
         id: head
@@ -247,6 +303,7 @@ Window {
 
 
 }
+
 
 
 
