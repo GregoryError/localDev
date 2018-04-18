@@ -143,6 +143,30 @@ int backend::randomBetween(int low, int high)
     return (qrand() % ((high + 1) - low) + low);
 }
 
+void backend::clearTyped()
+{
+    typedWord.clear();
+}
+
+QString backend::checkIfRight()
+{
+
+    QString strtemp = dictionary.value(typedWord);
+    if(!strtemp.isEmpty() && typedWord != startWord)
+    {
+        userWords.push_back(strtemp);
+        return formatter(1, "<br>", strtemp);
+    } if(typedWord == startWord)
+        return "same";
+                else return "null";
+
+}
+
+void backend::typeing(QString ch)
+{
+    typedWord += ch;
+}
+
 bool backend::readyWork()
 {
     return ready;
@@ -150,6 +174,9 @@ bool backend::readyWork()
 
 void backend::initWord()
 {
+   // qDebug() << "Проверим буфер: " + typedWord;
+    typedWord.clear();
+
     timesWordCall = 0;
     points = 0;
     startWord = list[randomBetween(0, list.size())]; 

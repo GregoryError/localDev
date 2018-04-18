@@ -23,6 +23,7 @@ public:
     int timesWordCall;
     unsigned int points;
     bool ready = false;
+    QString typedWord;
 
 
 private:
@@ -37,6 +38,9 @@ private:
 signals:
 
 public slots:
+    void clearTyped();
+    QString checkIfRight();
+    void typeing(QString ch);
     bool readyWork();
     void initWord();
     int howManyLetter();

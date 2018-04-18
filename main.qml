@@ -26,57 +26,128 @@ Window {
 
 
         Button{
-            id: startButton
+            id: checkButton
             width: main.width / 2 - 15
             height: main.height / 10
             //anchors.top: mainfield.top
-            anchors.bottom: mainfield.bottom
-            anchors.bottomMargin: 40
+            anchors.bottom: next_stop.top
+            anchors.bottomMargin: 5
             anchors.horizontalCenter: mainfield.horizontalCenter
             anchors.topMargin: 50
             background: Rectangle{
                 anchors.fill: parent
                 radius: 4
-                color: "#73e6d9"
+                color: "#3577d3"
                 Text {
                     anchors.centerIn: parent
                     anchors.leftMargin: 25
                     anchors.topMargin: 10
-                    font.family: "Noto Sans CJK KR Thin"
+                    font.family: "Segoe UI Light"
                     font.pointSize: 35
                     color: "white"
-                    text: "Next"
+                    text: "OK"
                 }
             }
             onClicked: {
-               // bigbusy.running = true
-                backend.initWord()
-
-                roword.visible = true
-
-                rep.model = backend.howManyLetter()
-                roword.columns = head.width / (main.height / 9 / 2) - 3
 
                 listModel.clear()
 
-               // if(listModel)
-               // {
-               // for (var i=0; i < listModel.count; ++i)
-               // {
-               //     listModel.remove(i);
-               //     i=0;
-               //
-               // }
-               // listModel.remove(0);
-               // }
-               //
+                if(backend.checkIfRight() === "null")
+                {
+                    headLine.text = "No!"
+                    answPanTxt.text = "There is no such word, <br>please try again!"
+                }
+                else if(backend.checkIfRight() === "same")
+                {
+                    headLine.text = "No!"
+                    answPanTxt.text = "You mustn`t use <br> the same word :)"
+                }
+                else
+                {
+                    headLine.text = "Well done! <br>"
+                    answPanTxt.text = backend.checkIfRight()
+                }
 
 
-                //listModel.remove()
-                //console.log((head.width / (main.height / 9)) - 2)
+                movePanel.running = true
 
+                backend.clearTyped()
 
             }
+
+        }
+
+
+        Row{
+            id: next_stop
+            width: mainfield.width - 30
+            height: main.height / 10
+            anchors.bottom: mainfield.bottom
+            anchors.bottomMargin: 20
+            anchors.horizontalCenter: mainfield.horizontalCenter
+            spacing: 5
+
+            Button{
+                id: leftBtn
+                width: main.width / 2 - 15
+                height: main.height / 10
+                anchors.leftMargin: 15
+                background: Rectangle{
+                    anchors.fill: parent
+                    radius: 4
+                    color: "#3577d3"
+                    Text {
+                        anchors.centerIn: parent
+                        anchors.leftMargin: 25
+                        anchors.topMargin: 10
+                        font.family: "Segoe UI Light"
+                        font.pointSize: 35
+                        color: "white"
+                        text: "NEXT"
+                    }
+                }
+                onClicked: {
+
+                     backend.initWord()
+
+                     roword.visible = true
+
+                     rep.model = backend.howManyLetter()
+
+                     roword.columns = head.width / (main.height / 9 / 2) - 3
+
+                     listModel.clear()
+
+                }
+
+            }
+
+            Button{
+                id: rightBtn
+                width: main.width / 2 - 15
+                height: main.height / 10
+                background: Rectangle{
+                    anchors.fill: parent
+                    radius: 4
+                    color: "#3577d3"
+                    Text {
+                        anchors.centerIn: parent
+                        anchors.leftMargin: 25
+                        anchors.topMargin: 10
+                        font.family: "Segoe UI Light"
+                        font.pointSize: 35
+                        color: "white"
+                        text: "STOP"
+                    }
+                }
+                onClicked: {
+                }
+
+            }
+
+
+
+
 
         }
 
@@ -127,12 +198,6 @@ Window {
                     }
 
 
-
-                   // text: id
-                   // font.family: "Lato Light"
-                   //
-                   // font.pointSize: (main.height / 9) / 2 -5
-
                     onClicked: {
                         textIndex.text = index
                     }
@@ -179,7 +244,6 @@ Window {
 
         Grid{
             id: roword
-            //columns: 8
             anchors.topMargin: 50
             anchors.bottomMargin: height * 5
             anchors.rightMargin: 25
@@ -189,12 +253,13 @@ Window {
 
             x: main.height / 9 / 2
             //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: startButton.top
+            anchors.bottom: checkButton.top
             spacing: 3
             visible: false
 
             Repeater{
                 id: rep
+
 
 
                 Button{
@@ -206,8 +271,6 @@ Window {
 
                    background: Rectangle{
                        anchors.fill: parent
-                       //border.width: 3
-                       //border.color: "#4697ee"
                        radius: 3
                        color: "#030e47"
 
@@ -216,8 +279,6 @@ Window {
                    Text{
                        id: buttontxt
                        anchors.centerIn: parent
-                      // anchors.leftMargin: 25
-                      // anchors.topMargin: 10
                        font.family: "Lato Light"
                        font.pointSize: (main.height / 9) / 2 -10
                        color: "white"
@@ -225,6 +286,8 @@ Window {
                        text: backend.gimmeLetter()
                    }
                        onClicked: {
+
+                           backend.typeing(buttontxt.text);
 
                            if(!listView1.positionViewAtEnd())
                             listModel.append({id: buttontxt.text})
@@ -255,14 +318,14 @@ Window {
         x: 0
         y: 0
         width: main.width
-        height: main.height / 9 + 10
-        color: "#43c4b5"
+        height: main.height / 10
+        color: "#3577d3"
         Text {
             id: headTxt
             anchors.verticalCenter: head.verticalCenter
             anchors.left: head.left
             anchors.leftMargin: 20
-            font.family: "Noto Sans CJK KR Thin"
+            font.family: "Segoe UI Light"
             font.pointSize: 20
             color: "white"
             text: "Tic-tac-words"
@@ -272,11 +335,11 @@ Window {
                         id: headshadow
                         transparentBorder: true
                         //horizontalOffset: 8
-                        verticalOffset: 8
+                        verticalOffset: 4
                         samples: 20
                         //spread: 0.6
-                        radius: 10
-                        color: "gray"
+                        radius: 8
+                        color: "#51637c"
                     }
 
     }
@@ -358,6 +421,114 @@ Window {
                       }
 
              }
+
+
+
+    Rectangle{
+        id: answerPanel
+        width: mainfield.width - 100
+        height: mainfield.height / 2
+        y: - (Screen.height + 500)
+        anchors.horizontalCenter: mainfield.horizontalCenter
+        radius: 10
+        color: "#090a4d"
+        opacity: 0.9
+
+
+        Text {
+            id: headLine
+            anchors.margins: 15
+            anchors.top: answerPanel.top
+            anchors.left: answerPanel.left
+           // anchors.centerIn: parent.Center
+            font.family: "Segoe UI Light"
+            styleColor: "#141d40"
+            font.pointSize: (main.height / 9) / 2 - 20
+            color: "white"
+
+        }
+
+
+        Text {
+            id: answPanTxt
+            anchors.margins: 15
+            anchors.top: headLine.bottom
+            anchors.left: answerPanel.left
+           // anchors.centerIn: parent.Center
+            font.family: "Segoe UI Light"
+            styleColor: "#141d40"
+            font.pointSize: (main.height / 9) / 2 - 30
+            color: "white"
+
+        }
+
+
+        Button{
+            id: panelOkBt
+            width: answerPanel.width / 2
+            height: answerPanel.height / 6
+            anchors.horizontalCenter: answerPanel.horizontalCenter
+            anchors.bottom: answerPanel.bottom
+            anchors.bottomMargin: 10
+            background: Rectangle{
+                anchors.fill: parent
+                color: "white"
+                radius: 7
+
+                Text {
+                    id: pressOkPanel
+                    anchors.centerIn: parent
+                    font.family: "Segoe UI Light"
+                    font.pointSize: 20
+                    color: "black"
+                    text: qsTr("OK")
+                }
+            }
+
+            onClicked: {
+                answerPanelClose.running = true
+            }
+        }
+
+        NumberAnimation{
+            id: answerPanelClose
+            running: false
+            target: answerPanel
+            properties: "y"
+            from: mainfield.height / 2 - (answerPanel.height / 2)
+            to: - (Screen.height + 500)
+
+            duration: 400
+            easing.type: Easing.InBack
+        }
+
+
+        ParallelAnimation{
+            id: movePanel
+            running: false
+            NumberAnimation{
+
+                target: answerPanel
+                properties: "y"
+                from: - (Screen.height + 500)
+                to: mainfield.height / 2 - (answerPanel.height / 2)
+
+                duration: 400
+                easing.type: Easing.OutBack
+            }
+            NumberAnimation{
+                target: answerPanel
+                properties: "opacity"
+                from: 0
+                to: 0.9
+                duration: 100
+            }
+
+        }
+
+    }
+
+
 
 
 }
