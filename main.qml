@@ -13,8 +13,12 @@ import QtGraphicalEffects 1.0
 Window {
     id: main
     visible: true
-    height: 960       // Don`t forget to change it, before build for target
-    width: 540
+    //height: 960       // Don`t forget to change it, before build for target
+    //width: 540
+
+    height: Screen.height
+    width: Screen.width
+
     title: qsTr("tic-tac")
 
 
@@ -27,8 +31,8 @@ Window {
 
         Button{
             id: checkButton
-            width: main.width / 2 - 15
-            height: main.height / 10
+            width: main.width / 2 - 15 - 7
+            height: main.height / 10 - 7
             //anchors.top: mainfield.top
             anchors.bottom: next_stop.top
             anchors.bottomMargin: 5
@@ -83,14 +87,14 @@ Window {
             width: mainfield.width - 30
             height: main.height / 10
             anchors.bottom: mainfield.bottom
-            anchors.bottomMargin: 20
+            anchors.bottomMargin: 7
             anchors.horizontalCenter: mainfield.horizontalCenter
             spacing: 5
 
             Button{
                 id: leftBtn
-                width: main.width / 2 - 15
-                height: main.height / 10
+                width: main.width / 2 - 15 - 7
+                height: main.height / 10 - 7
                 anchors.leftMargin: 15
                 background: Rectangle{
                     anchors.fill: parent
@@ -124,8 +128,8 @@ Window {
 
             Button{
                 id: rightBtn
-                width: main.width / 2 - 15
-                height: main.height / 10
+                width: main.width / 2 - 15 - 7
+                height: main.height / 10 - 7
                 background: Rectangle{
                     anchors.fill: parent
                     radius: 4
@@ -443,7 +447,7 @@ Window {
            // anchors.centerIn: parent.Center
             font.family: "Segoe UI Light"
             styleColor: "#141d40"
-            font.pointSize: (main.height / 9) / 2 - 20
+            font.pointSize: main.height / 96 + 20
             color: "white"
 
         }
@@ -457,7 +461,7 @@ Window {
            // anchors.centerIn: parent.Center
             font.family: "Segoe UI Light"
             styleColor: "#141d40"
-            font.pointSize: (main.height / 9) / 2 - 30
+            font.pointSize: main.height / 96 + 15
             color: "white"
 
         }
@@ -498,7 +502,7 @@ Window {
             from: mainfield.height / 2 - (answerPanel.height / 2)
             to: - (Screen.height + 500)
 
-            duration: 400
+            duration: 200
             easing.type: Easing.InBack
         }
 
@@ -513,7 +517,7 @@ Window {
                 from: - (Screen.height + 500)
                 to: mainfield.height / 2 - (answerPanel.height / 2)
 
-                duration: 400
+                duration: 250
                 easing.type: Easing.OutBack
             }
             NumberAnimation{

@@ -122,7 +122,7 @@ QString backend::formatter(const int &howManyInLine, const QString &separater, c
 
     for(auto &c:list)
     {
-       if(c == ' ' || c == '\n')
+       if(c == ' ' || c == '\n' || c == '\t')
        {
            ++counter;
        }
