@@ -155,7 +155,7 @@ void backend::initWord()
     startWord = list[randomBetween(0, list.size())]; 
 }
 
-int backend::howManyLetter()
+int backend::howmanyLetter()
 {
     return startWord.length();
 }

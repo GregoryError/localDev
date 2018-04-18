@@ -39,7 +39,7 @@ signals:
 public slots:
     bool readyWork();
     void initWord();
-    int howManyLetter();
+    int howmanyLetter();
     QChar gimmeLetter();
     void findWordList();
     bool isRightWord(QString &word);

@@ -45,7 +45,7 @@ Window {
                     font.family: "Noto Sans CJK KR Thin"
                     font.pointSize: 35
                     color: "white"
-                    text: "Next"
+                    text: "New"
                 }
             }
             onClicked: {
@@ -77,7 +77,7 @@ Window {
 
 
             }
-
+            
         }
 
 
@@ -99,77 +99,28 @@ Window {
 
             delegate: Item {
                 id: item_2
-                 width: (main.height / 9) / 2 +10
+                 width: (main.height / 9) / 2 +5
                  height: width
 
             Button {
-                    id: listButt
+
                     anchors.fill: parent
                     anchors.margins: 3
 
 
-
-                    background: Rectangle{
-                        anchors.fill: parent
-                        //border.width: 3
-                        //border.color: "#4697ee"
-                        radius: 3
-                        color: "#0f3da0"
-
-                    }
-
-                    Text{
-                        anchors.centerIn: parent
-                        text: id
-                        font.family: "Lato Light"
-                        font.pointSize: (main.height / 9) / 2 -5
-                        color: "white"
-                    }
-
-
-
-                   // text: id
-                   // font.family: "Lato Light"
-                   //
-                   // font.pointSize: (main.height / 9) / 2 -5
+                    text: id
+                    font.family: "Lato Light"
+                    font.pointSize: (main.height / 9) / 2 -10
 
                     onClicked: {
                         textIndex.text = index
                     }
-
-
-                    ParallelAnimation{
-                        id: moveAnim
-                        running: true
-                        NumberAnimation{
-
-                            target: item_2
-                            properties: "y"
-                            from: roword.y
-                            to: 0
-
-                            duration: 400
-                            easing.type: Easing.OutBack
-                        }
-                        NumberAnimation{
-                            target: listButt
-                            properties: "opacity"
-                            from: 0
-                            to: 1.0
-                            duration: 100
-                        }
-
-                    }
-
-
-
                 }
             }
 
             model: ListModel {
                 id: listModel // setting an id
             }
-
 
 
 }
@@ -195,8 +146,6 @@ Window {
 
             Repeater{
                 id: rep
-
-
                 Button{
                    id: buttons
 
@@ -209,7 +158,7 @@ Window {
                        //border.width: 3
                        //border.color: "#4697ee"
                        radius: 3
-                       color: "#030e47"
+                       color: "#4e0fa0"
 
                    }
                 
@@ -233,18 +182,11 @@ Window {
                        
                        }
 
-
-
-
                   }
 
              }
 
         }
-
-
-
-
 
     }
 

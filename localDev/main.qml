@@ -25,6 +25,18 @@ Window {
         anchors.top: head.bottom
 
 
+
+
+        Grid{
+            id: answerGrid
+            anchors.topMargin: 50
+            width: (main.height / 9) / 2 +5
+            height: (main.height / 9) / 2 +5
+            anchors.top: head.bottom
+
+
+        }
+
         Button{
             id: startButton
             width: main.width / 2 - 15
@@ -45,7 +57,7 @@ Window {
                     font.family: "Noto Sans CJK KR Thin"
                     font.pointSize: 35
                     color: "white"
-                    text: "Next"
+                    text: "New"
                 }
             }
             onClicked: {
@@ -54,127 +66,16 @@ Window {
 
                 roword.visible = true
 
-                rep.model = backend.howManyLetter()
+                rep.model = backend.howmanyLetter()
                 roword.columns = head.width / (main.height / 9 / 2) - 3
 
-                listModel.clear()
-
-               // if(listModel)
-               // {
-               // for (var i=0; i < listModel.count; ++i)
-               // {
-               //     listModel.remove(i);
-               //     i=0;
-               //
-               // }
-               // listModel.remove(0);
-               // }
-               //
-
-
-                //listModel.remove()
                 //console.log((head.width / (main.height / 9)) - 2)
 
 
-            }
 
+            }
+            
         }
-
-
-//=================================================================
-// expirement
-
-        ListView {
-            id: listView1
-            interactive: true
-            orientation: ListView.Horizontal
-            y: head.y + 40
-            x: 40
-
-            implicitWidth: main.width - 80
-
-
-           // width: main.width - 10
-            height: (main.height / 9) // 2 +5
-
-            delegate: Item {
-                id: item_2
-                 width: (main.height / 9) / 2 +10
-                 height: width
-
-            Button {
-                    id: listButt
-                    anchors.fill: parent
-                    anchors.margins: 3
-
-
-
-                    background: Rectangle{
-                        anchors.fill: parent
-                        //border.width: 3
-                        //border.color: "#4697ee"
-                        radius: 3
-                        color: "#0f3da0"
-
-                    }
-
-                    Text{
-                        anchors.centerIn: parent
-                        text: id
-                        font.family: "Lato Light"
-                        font.pointSize: (main.height / 9) / 2 -5
-                        color: "white"
-                    }
-
-
-
-                   // text: id
-                   // font.family: "Lato Light"
-                   //
-                   // font.pointSize: (main.height / 9) / 2 -5
-
-                    onClicked: {
-                        textIndex.text = index
-                    }
-
-
-                    ParallelAnimation{
-                        id: moveAnim
-                        running: true
-                        NumberAnimation{
-
-                            target: item_2
-                            properties: "y"
-                            from: roword.y
-                            to: 0
-
-                            duration: 400
-                            easing.type: Easing.OutBack
-                        }
-                        NumberAnimation{
-                            target: listButt
-                            properties: "opacity"
-                            from: 0
-                            to: 1.0
-                            duration: 100
-                        }
-
-                    }
-
-
-
-                }
-            }
-
-            model: ListModel {
-                id: listModel // setting an id
-            }
-
-
-
-}
-
-//================================================================
 
 
         Grid{
@@ -187,7 +88,7 @@ Window {
             width: (main.height / 9) / 2 +5
             height: (main.height / 9) / 2 +5
 
-            x: main.height / 9 / 2
+            x: main.height / 9 / 2 - 10
             //anchors.horizontalCenter: parent.horizontalCenter
             anchors.bottom: startButton.top
             spacing: 3
@@ -195,8 +96,6 @@ Window {
 
             Repeater{
                 id: rep
-
-
                 Button{
                    id: buttons
 
@@ -209,7 +108,7 @@ Window {
                        //border.width: 3
                        //border.color: "#4697ee"
                        radius: 3
-                       color: "#030e47"
+                       color: "#4e0fa0"
 
                    }
                 
@@ -225,30 +124,17 @@ Window {
                        text: backend.gimmeLetter()
                    }
                        onClicked: {
-
-                           if(!listView1.positionViewAtEnd())
-                            listModel.append({id: buttontxt.text})
-                           else listView1.visible = false
-
                        
                        }
 
+       }
 
+            }
 
-
-                  }
-
-             }
 
         }
 
-
-
-
-
     }
-
-
 
     Rectangle{
         id: head
@@ -361,7 +247,6 @@ Window {
 
 
 }
-
 
 
 
