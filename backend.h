@@ -19,6 +19,7 @@ public:
     QStringList list, listTransl, subList, userWords;
     QMap<QString, QString> dictionary;
     std::set<QString> wordSet;
+    QString lastWord;
     QString startWord;
     int timesWordCall;
     unsigned int points;
@@ -38,6 +39,8 @@ private:
 signals:
 
 public slots:
+    QString userAnswers();
+    QString showLast();
     void clearTyped();
     QString checkIfRight();
     void typeing(QString ch);

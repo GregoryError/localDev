@@ -13,11 +13,11 @@ import QtGraphicalEffects 1.0
 Window {
     id: main
     visible: true
-    //height: 960       // Don`t forget to change it, before build for target
-    //width: 540
+    height: 960       // Don`t forget to change it, before build for target
+    width: 540
 
-    height: Screen.height
-    width: Screen.width
+   // height: Screen.height
+   // width: Screen.width
 
     title: qsTr("tic-tac")
 
@@ -28,132 +28,6 @@ Window {
         height: main.height - head.height
         anchors.top: head.bottom
 
-
-        Button{
-            id: checkButton
-            width: main.width / 2 - 15 - 7
-            height: main.height / 10 - 7
-            //anchors.top: mainfield.top
-            anchors.bottom: next_stop.top
-            anchors.bottomMargin: 5
-            anchors.horizontalCenter: mainfield.horizontalCenter
-            anchors.topMargin: 50
-            background: Rectangle{
-                anchors.fill: parent
-                radius: 4
-                color: "#3577d3"
-                Text {
-                    anchors.centerIn: parent
-                    anchors.leftMargin: 25
-                    anchors.topMargin: 10
-                    font.family: "Segoe UI Light"
-                    font.pointSize: 35
-                    color: "white"
-                    text: "OK"
-                }
-            }
-            onClicked: {
-
-                listModel.clear()
-
-                if(backend.checkIfRight() === "null")
-                {
-                    headLine.text = "No!"
-                    answPanTxt.text = "There is no such word, <br>please try again!"
-                }
-                else if(backend.checkIfRight() === "same")
-                {
-                    headLine.text = "No!"
-                    answPanTxt.text = "You mustn`t use <br> the same word :)"
-                }
-                else
-                {
-                    headLine.text = "Well done! <br>"
-                    answPanTxt.text = backend.checkIfRight()
-                }
-
-
-                movePanel.running = true
-
-                backend.clearTyped()
-
-            }
-
-        }
-
-
-        Row{
-            id: next_stop
-            width: mainfield.width - 30
-            height: main.height / 10
-            anchors.bottom: mainfield.bottom
-            anchors.bottomMargin: 7
-            anchors.horizontalCenter: mainfield.horizontalCenter
-            spacing: 5
-
-            Button{
-                id: leftBtn
-                width: main.width / 2 - 15 - 7
-                height: main.height / 10 - 7
-                anchors.leftMargin: 15
-                background: Rectangle{
-                    anchors.fill: parent
-                    radius: 4
-                    color: "#3577d3"
-                    Text {
-                        anchors.centerIn: parent
-                        anchors.leftMargin: 25
-                        anchors.topMargin: 10
-                        font.family: "Segoe UI Light"
-                        font.pointSize: 35
-                        color: "white"
-                        text: "NEXT"
-                    }
-                }
-                onClicked: {
-
-                     backend.initWord()
-
-                     roword.visible = true
-
-                     rep.model = backend.howManyLetter()
-
-                     roword.columns = head.width / (main.height / 9 / 2) - 3
-
-                     listModel.clear()
-
-                }
-
-            }
-
-            Button{
-                id: rightBtn
-                width: main.width / 2 - 15 - 7
-                height: main.height / 10 - 7
-                background: Rectangle{
-                    anchors.fill: parent
-                    radius: 4
-                    color: "#3577d3"
-                    Text {
-                        anchors.centerIn: parent
-                        anchors.leftMargin: 25
-                        anchors.topMargin: 10
-                        font.family: "Segoe UI Light"
-                        font.pointSize: 35
-                        color: "white"
-                        text: "STOP"
-                    }
-                }
-                onClicked: {
-                }
-
-            }
-
-
-
-
-
-        }
 
 
 //=================================================================
@@ -249,7 +123,7 @@ Window {
         Grid{
             id: roword
             anchors.topMargin: 50
-            anchors.bottomMargin: height * 5
+            anchors.bottomMargin: height * 7
             anchors.rightMargin: 25
             anchors.leftMargin: 25
             width: (main.height / 9) / 2 +5
@@ -257,7 +131,7 @@ Window {
 
             x: main.height / 9 / 2
             //anchors.horizontalCenter: parent.horizontalCenter
-            anchors.bottom: checkButton.top
+            anchors.bottom: mainfield.bottom
             spacing: 3
             visible: false
 
@@ -300,18 +174,131 @@ Window {
                        
                        }
 
-
-
-
                   }
 
              }
 
         }
 
+    }
+
+    Rectangle{
+        id: answerPanel
+        width: mainfield.width - 100
+        height: mainfield.height / 2
+        y: - (Screen.height + 500)
+        anchors.horizontalCenter: mainfield.horizontalCenter
+        radius: 8
+        color: "#274f7c"
+        opacity: 0.9
 
 
+        Text {
+            id: headLine
+            anchors.margins: 15
+            anchors.top: answerPanel.top
+            anchors.left: answerPanel.left
+           // anchors.centerIn: parent.Center
+            font.family: "Segoe UI Light"
+            font.pointSize: main.height / 96 + 20
+            color: "white"
 
+        }
+
+
+Flickable{
+    id: answerFlick
+    interactive: true
+    width: answerPanel.width
+    height: answerPanel.height - panelOkBt.height
+    anchors.top: headLine.bottom
+    contentWidth: answerPanel.width
+    contentHeight: answerPanel.height * 50
+    Rectangle{
+        id: contentRect
+        //anchors.centerIn: parent
+        color: answerPanel.color
+        Text {
+            id: answPanTxt
+            anchors.margins: 15
+            anchors.top: headLine.bottom
+            anchors.left: contentRect.left
+           // anchors.centerIn: parent.Center
+            font.family: "Segoe UI Light"
+            styleColor: "#141d40"
+            font.pointSize: main.height / 96 + 15
+            color: "white"
+
+        }
+    }
+
+}
+
+        Button{
+            id: panelOkBt
+            width: answerPanel.width / 2
+            height: answerPanel.height / 6
+            anchors.horizontalCenter: answerPanel.horizontalCenter
+            anchors.bottom: answerPanel.bottom
+            anchors.bottomMargin: 10
+            background: Rectangle{
+                anchors.fill: parent
+                color: "white"
+                radius: 7
+
+                Text {
+                    id: pressOkPanel
+                    anchors.centerIn: parent
+                    font.family: "Segoe UI Light"
+                    font.pointSize: 20
+                    color: "black"
+                    text: qsTr("OK")
+                }
+            }
+
+            onClicked: {
+                answerPanelClose.running = true
+                answPanTxt.text = ""
+                answPanTxt.text = ""
+
+            }
+        }
+
+        NumberAnimation{
+            id: answerPanelClose
+            running: false
+            target: answerPanel
+            properties: "y"
+            from: mainfield.height / 2 - (answerPanel.height / 2)
+            to: - (Screen.height + 500)
+
+            duration: 200
+            easing.type: Easing.InBack
+        }
+
+
+        ParallelAnimation{
+            id: movePanel
+            running: false
+            NumberAnimation{
+
+                target: answerPanel
+                properties: "y"
+                from: - (Screen.height + 500)
+                to: mainfield.height / 2 - (answerPanel.height / 2)
+
+                duration: 250
+                easing.type: Easing.OutBack
+            }
+            NumberAnimation{
+                target: answerPanel
+                properties: "opacity"
+                from: 0
+                to: 0.9
+                duration: 100
+            }
+
+        }
 
     }
 
@@ -322,7 +309,7 @@ Window {
         x: 0
         y: 0
         width: main.width
-        height: main.height / 10
+        height: main.height / 11
         color: "#3577d3"
         Text {
             id: headTxt
@@ -347,6 +334,161 @@ Window {
                     }
 
     }
+
+
+
+
+
+
+
+    Button{
+        id: checkButton
+        width: main.width / 2 - 15 - 7
+        height: main.height / 10 - 7
+        //anchors.top: mainfield.top
+        anchors.bottom: next_stop.top
+        anchors.bottomMargin: 5
+        anchors.horizontalCenter: mainfield.horizontalCenter
+        anchors.topMargin: 50
+        background: Rectangle{
+            anchors.fill: parent
+            radius: 4
+            color: "#3577d3"
+            Text {
+                anchors.centerIn: parent
+                anchors.leftMargin: 25
+                anchors.topMargin: 10
+                font.family: "Segoe UI Light"
+                font.pointSize: 35
+                color: "white"
+                text: "OK"
+            }
+        }
+        onClicked: {
+
+            listModel.clear()
+
+            answerPanel.height = mainfield.height / 2
+
+            answerFlick.contentY = 0
+
+            if(backend.checkIfRight() === "null")
+            {
+                headLine.text = "No!"
+                answPanTxt.text = "There is no such word, <br>please try again!"
+            }
+            else if(backend.checkIfRight() === "same")
+            {
+                headLine.text = "No!"
+                answPanTxt.text = "You mustn`t use <br> the same word :)"
+            }
+            else
+            {
+                headLine.text = "Well done! <br>"
+                answPanTxt.text = backend.showLast()
+            }
+
+            movePanel.running = true
+
+            backend.clearTyped()
+        }
+    }
+
+    Row{
+        id: next_stop
+        width: mainfield.width - 30
+        height: main.height / 10
+        anchors.bottom: mainfield.bottom
+        anchors.bottomMargin: 7
+        anchors.horizontalCenter: mainfield.horizontalCenter
+        spacing: 5
+
+        Button{
+            id: leftBtn
+            width: main.width / 2 - 15 - 7
+            height: main.height / 10 - 7
+            anchors.leftMargin: 15
+            background: Rectangle{
+                anchors.fill: parent
+                radius: 4
+                color: "#3577d3"
+                Text {
+                    anchors.centerIn: parent
+                    anchors.leftMargin: 25
+                    anchors.topMargin: 10
+                    font.family: "Segoe UI Light"
+                    font.pointSize: 35
+                    color: "white"
+                    text: "NEXT"
+                }
+            }
+            onClicked: {
+
+                 backend.initWord()
+
+                 roword.visible = true
+
+                 rep.model = backend.howManyLetter()
+
+                 roword.columns = head.width / (main.height / 9 / 2) - 3
+
+                 listModel.clear()
+
+                 backend.findWordList()
+
+
+
+            }
+
+        }
+
+        Button{
+            id: rightBtn
+            width: main.width / 2 - 15 - 7
+            height: main.height / 10 - 7
+            background: Rectangle{
+                anchors.fill: parent
+                radius: 4
+                color: "#3577d3"
+                Text {
+                    anchors.centerIn: parent
+                    anchors.leftMargin: 25
+                    anchors.topMargin: 10
+                    font.family: "Segoe UI Light"
+                    font.pointSize: 35
+                    color: "white"
+                    text: "STOP"
+                }
+            }
+            onClicked: {
+
+                answerPanel.height = mainfield.height / 2 + 200
+
+                panelOkBt.height = answerPanel.height / 7
+
+                headLine.text = "Results: "
+
+                answPanTxt.text = backend.userAnswers()
+
+                listModel.clear()
+
+                answerFlick.contentY = 0
+
+                movePanel.running = true
+
+                backend.clearTyped()
+
+
+            }
+
+        }
+
+    }
+
+
+
+
+
 
 
     BusyIndicator {
@@ -417,122 +559,12 @@ Window {
                                        }
                                    ]
 
-
-
                                    }
                                }
 
                       }
 
              }
-
-
-
-    Rectangle{
-        id: answerPanel
-        width: mainfield.width - 100
-        height: mainfield.height / 2
-        y: - (Screen.height + 500)
-        anchors.horizontalCenter: mainfield.horizontalCenter
-        radius: 10
-        color: "#090a4d"
-        opacity: 0.9
-
-
-        Text {
-            id: headLine
-            anchors.margins: 15
-            anchors.top: answerPanel.top
-            anchors.left: answerPanel.left
-           // anchors.centerIn: parent.Center
-            font.family: "Segoe UI Light"
-            styleColor: "#141d40"
-            font.pointSize: main.height / 96 + 20
-            color: "white"
-
-        }
-
-
-        Text {
-            id: answPanTxt
-            anchors.margins: 15
-            anchors.top: headLine.bottom
-            anchors.left: answerPanel.left
-           // anchors.centerIn: parent.Center
-            font.family: "Segoe UI Light"
-            styleColor: "#141d40"
-            font.pointSize: main.height / 96 + 15
-            color: "white"
-
-        }
-
-
-        Button{
-            id: panelOkBt
-            width: answerPanel.width / 2
-            height: answerPanel.height / 6
-            anchors.horizontalCenter: answerPanel.horizontalCenter
-            anchors.bottom: answerPanel.bottom
-            anchors.bottomMargin: 10
-            background: Rectangle{
-                anchors.fill: parent
-                color: "white"
-                radius: 7
-
-                Text {
-                    id: pressOkPanel
-                    anchors.centerIn: parent
-                    font.family: "Segoe UI Light"
-                    font.pointSize: 20
-                    color: "black"
-                    text: qsTr("OK")
-                }
-            }
-
-            onClicked: {
-                answerPanelClose.running = true
-            }
-        }
-
-        NumberAnimation{
-            id: answerPanelClose
-            running: false
-            target: answerPanel
-            properties: "y"
-            from: mainfield.height / 2 - (answerPanel.height / 2)
-            to: - (Screen.height + 500)
-
-            duration: 200
-            easing.type: Easing.InBack
-        }
-
-
-        ParallelAnimation{
-            id: movePanel
-            running: false
-            NumberAnimation{
-
-                target: answerPanel
-                properties: "y"
-                from: - (Screen.height + 500)
-                to: mainfield.height / 2 - (answerPanel.height / 2)
-
-                duration: 250
-                easing.type: Easing.OutBack
-            }
-            NumberAnimation{
-                target: answerPanel
-                properties: "opacity"
-                from: 0
-                to: 0.9
-                duration: 100
-            }
-
-        }
-
-    }
-
-
 
 
 }

@@ -83,6 +83,7 @@ QStringList backend::listOfWords(const QString &word)       // This method gets 
             if(i != 1 && i == str.length() && str != word)
             {
                 answer.push_back(str);
+                //qDebug() << str;
             }
 
 ++pos;
@@ -143,24 +144,85 @@ int backend::randomBetween(int low, int high)
     return (qrand() % ((high + 1) - low) + low);
 }
 
+QString backend::userAnswers()
+{
+    return "Your answers: <br>" + formatter(1, "<br>", userWords) + "<br><br>"
+            "All possible answers: <br>" + formatter(1, "<br>", subList) ;
+
+}
+
+QString backend::showLast()
+{
+    return lastWord;
+}
+
 void backend::clearTyped()
 {
     typedWord.clear();
 }
 
+
+void backend::findWordList()                  // just start process of findind possible words
+{
+    wordSet.clear();
+    subList = listOfWords(startWord);
+    wordSet.insert(subList.begin(), subList.end());
+   // return true;
+}
+
+bool backend::isRightWord(QString &word)      // returns true if passed word exist in a list of all possible words
+{
+    if(wordSet.find(word) != wordSet.end())
+    {
+        wordSet.erase(wordSet.find(word));
+        userWords.push_back(word);
+        ++points;
+        return true;
+
+    }else return false;
+}
+
+
+//QString backend::checkIfRight()
+//{
+//
+//    QString strtemp = dictionary.value(typedWord);
+//
+//
+//
+//    if(answeredWords.find(typedWord) == answeredWords.end())
+//        return "same";
+//
+//
+//    if(!strtemp.isEmpty() && typedWord != startWord)
+//    {
+//        userWords.push_back(typedWord + ":<br>" + strtemp + "<br><br>");
+//        answeredWords.insert(typedWord);
+//        return formatter(1, "<br>", strtemp);
+//
+//    } else if(typedWord == startWord)
+//
+//        return "same";
+//                else return "null";
+//
+//}
+
 QString backend::checkIfRight()
 {
 
-    QString strtemp = dictionary.value(typedWord);
-    if(!strtemp.isEmpty() && typedWord != startWord)
+    if(isRightWord(typedWord))
     {
-        userWords.push_back(strtemp);
-        return formatter(1, "<br>", strtemp);
-    } if(typedWord == startWord)
-        return "same";
+        QString strtemp = dictionary.value(typedWord);
+        lastWord = typedWord + ":<br>" + formatter(1, "<br>", strtemp);
+        return lastWord;
+
+    }else if(typedWord == startWord || wordSet.find(typedWord) != wordSet.end())
+             return "same";
                 else return "null";
 
 }
+
+
 
 void backend::typeing(QString ch)
 {
@@ -196,23 +258,6 @@ QChar backend::gimmeLetter()
     else return ' ';;
 }
 
-void backend::findWordList()                  // just start process of findind possible words
-{
-    subList = listOfWords(startWord);
-    wordSet.insert(subList.begin(), subList.end());
-   // return true;
-}
-
-bool backend::isRightWord(QString &word)      // returns true if passed word exist in a list of all possible words
-{
-    if(wordSet.find(word) != wordSet.end())
-    {
-        wordSet.erase(wordSet.find(word));
-        userWords.push_back(word);
-        ++points;
-        return true;
-    }else return false;
-}
 
 QString backend::showUserAnswers()           // this shows only player answers with translations and formatted
 {
