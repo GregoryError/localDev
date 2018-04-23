@@ -260,6 +260,7 @@ Flickable{
                 answerPanelClose.running = true
                 answPanTxt.text = ""
                 answPanTxt.text = ""
+                checkButton.visible = true
 
             }
         }
@@ -465,6 +466,8 @@ Flickable{
                 answerPanel.height = mainfield.height / 2 + 200
 
                 panelOkBt.height = answerPanel.height / 7
+
+                checkButton.visible = false
 
                 headLine.text = "Results: "
 
