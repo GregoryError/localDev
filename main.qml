@@ -171,7 +171,11 @@ Window {
                             listModel.append({id: buttontxt.text})
                            else listView1.visible = false
 
-                       
+                           buttons.enabled = false
+                           buttons.visible = false
+
+
+
                        }
 
                   }
@@ -257,10 +261,23 @@ Flickable{
             }
 
             onClicked: {
+
                 answerPanelClose.running = true
+
                 answPanTxt.text = ""
+
                 answPanTxt.text = ""
+
                 checkButton.visible = true
+
+                for(var a = 0; a !== rep.count; ++a)
+                {
+                    rep.itemAt(a).enabled = true
+                    rep.itemAt(a).visible = true
+
+                }
+
+
 
             }
         }
