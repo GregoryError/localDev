@@ -11,6 +11,8 @@
 #include <QQmlContext>
 #include <QMap>
 
+
+
 class backend : public QObject
 {
     Q_OBJECT
@@ -39,6 +41,7 @@ private:
 signals:
 
 public slots:
+
     QString showSessionPercent();
     QString showPointsPercent();
     QString showPossiblePoints();

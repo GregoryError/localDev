@@ -184,7 +184,7 @@ Window {
 
                            buttons.enabled = false
                            //buttontxt.visible = false
-                          // buttons.visible = false
+                           //buttons.visible = false
 
 
 
@@ -225,13 +225,14 @@ Window {
 
 Flickable{
     id: answerFlick
+    clip: true
     interactive: true
     width: answerPanel.width
     height: answerPanel.height - panelOkBt.height
     anchors.top: headLine.bottom
     anchors.bottom: panelOkBt.top
     contentWidth: answerPanel.width
-    contentHeight: answerPanel.height * 100
+    contentHeight: answerPanel.height * 1000
     Rectangle{
         id: contentRect
         //anchors.centerIn: parent
@@ -349,9 +350,9 @@ Flickable{
             anchors.left: head.left
             anchors.leftMargin: 20
             font.family: "Segoe UI Light"
-            font.pointSize: 20
+            font.pointSize: 35
             color: "white"
-            text: "Tic-tac-words"
+            text: "wordsroom"
         }
         layer.enabled: true
                     layer.effect: DropShadow {
@@ -393,7 +394,7 @@ Flickable{
                 font.family: "Segoe UI Light"
                 font.pointSize: 35
                 color: "white"
-                text: "OK"
+                text: "Check"
             }
         }
         onClicked: {
@@ -454,7 +455,7 @@ Flickable{
                     font.family: "Segoe UI Light"
                     font.pointSize: 35
                     color: "white"
-                    text: "NEXT"
+                    text: "Next"
                 }
             }
             onClicked: {
@@ -492,7 +493,7 @@ Flickable{
                     font.family: "Segoe UI Light"
                     font.pointSize: 35
                     color: "white"
-                    text: "STOP"
+                    text: "Give up"
                 }
             }
             onClicked: {

@@ -1,10 +1,13 @@
 #include "backend.h"
 
+
 backend::backend(QObject *parent) : QObject(parent)
 {
 
+
+
 //==================================================================================
-    QFile in(":/ENGRUS.txt");
+    QFile in(":/ENG.txt");
 
     if (!in.open(QIODevice::ReadOnly | QIODevice::Text))
      {
@@ -23,22 +26,22 @@ backend::backend(QObject *parent) : QObject(parent)
             {
                 if(c == "\n")
                     break;
-                str += c;
+                str += c.toLower();
             }
 
-            if(i % 2 == 0)
-            {
+           // if(i % 2 == 0)
+           // {
                 list.push_back(str);
-            }else
-                listTransl.push_back(str);
+            //}else
+            //    listTransl.push_back(str);
             ++i;
         }
 
         unsigned long int t = 0;
-        for(auto &c:list)
-        {
-            dictionary.insert(c, listTransl[t++]);
-        }
+       // for(auto &c:list)
+       // {
+       //     dictionary.insert(c, listTransl[t++]);
+       // }
     }
 
 
@@ -146,6 +149,11 @@ int backend::randomBetween(int low, int high)
     return (qrand() % ((high + 1) - low) + low);
 }
 
+
+
+
+
+
 QString backend::showSessionPercent()
 {
     auto all(possiblePoints);
@@ -223,8 +231,8 @@ QString backend::checkIfRight()
 
     if(isRightWord(typedWord))
     {
-        QString strtemp = dictionary.value(typedWord);
-        lastWord = typedWord + ":<br>" + formatter(1, "<br>", strtemp);        
+        //QString strtemp = dictionary.value(typedWord);
+        lastWord = typedWord; // + ":<br>" + formatter(1, "<br>", strtemp);
         return lastWord;
 
     }else if(typedWord == startWord || wordSet.find(typedWord) != wordSet.end())
@@ -254,7 +262,7 @@ void backend::initWord()
     timesWordCall = 0;
     sessionpoints = 0;
     possiblePoints = 0;
-    startWord = list[randomBetween(0, list.size())]; 
+    startWord = list[randomBetween(0, list.size())];
 }
 
 int backend::howManyLetter()
