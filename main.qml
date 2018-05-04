@@ -16,6 +16,7 @@ Window {
     height: 960       // Don`t forget to change it, before build for target
     width: 540
 
+
    // height: Screen.height
    // width: Screen.width
 
@@ -27,6 +28,16 @@ Window {
         width: main.width
         height: main.height - head.height
         anchors.top: head.bottom
+
+
+        Rectangle{
+            anchors.fill: parent
+            Image {
+                anchors.fill: parent
+                id: backGround
+                source: "qrc:/background.png"
+            }
+        }
 
 
 
@@ -172,7 +183,7 @@ Window {
                            else listView1.visible = false
 
                            buttons.enabled = false
-                           buttons.visible = false
+                          // buttons.visible = false
 
 
 
@@ -216,6 +227,7 @@ Flickable{
     width: answerPanel.width
     height: answerPanel.height - panelOkBt.height
     anchors.top: headLine.bottom
+    anchors.bottom: panelOkBt.top
     contentWidth: answerPanel.width
     contentHeight: answerPanel.height * 50
     Rectangle{
@@ -344,11 +356,11 @@ Flickable{
                         id: headshadow
                         transparentBorder: true
                         //horizontalOffset: 8
-                        verticalOffset: 4
+                        verticalOffset: 8
                         samples: 20
                         //spread: 0.6
-                        radius: 8
-                        color: "#51637c"
+                        radius: 18
+                        color: "#89a9d3"
                     }
 
     }
@@ -388,7 +400,10 @@ Flickable{
 
             answerPanel.height = mainfield.height / 2
 
+            answerPanel.width = mainfield.width - 100
+
             answerFlick.contentY = 0
+
 
             if(backend.checkIfRight() === "null")
             {
@@ -480,13 +495,19 @@ Flickable{
             }
             onClicked: {
 
-                answerPanel.height = mainfield.height / 2 + 200
+                answerPanel.height = mainfield.height / 2 + 100
 
-                panelOkBt.height = answerPanel.height / 7
+                answerPanel.width = mainfield.width - 50
+
+                panelOkBt.height = answerPanel.height / 7 - 10
 
                 checkButton.visible = false
 
-                headLine.text = "Results: "
+                headLine.text = "Results: <br>" + "Points: " + backend.showSessionPoints()
+                        + " Total: "
+                        + backend.showPoints() +
+                        "<br> Possible: " + backend.showPossiblePoints()
+
 
                 answPanTxt.text = backend.userAnswers()
 
@@ -585,6 +606,8 @@ Flickable{
                       }
 
              }
+
+
 
 
 }

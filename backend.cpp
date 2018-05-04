@@ -41,6 +41,7 @@ backend::backend(QObject *parent) : QObject(parent)
         }
     }
 
+
     //qDebug() << "Словарь для подбора прочитан в память.";
     //qDebug() << dictionary.value("mankind");
     in.close();
@@ -88,6 +89,7 @@ QStringList backend::listOfWords(const QString &word)       // This method gets 
 
 ++pos;
        }
+    possiblePoints = answer.size();
     return answer;
 
 }
@@ -144,6 +146,37 @@ int backend::randomBetween(int low, int high)
     return (qrand() % ((high + 1) - low) + low);
 }
 
+QString backend::showSessionPercent()
+{
+    auto all(possiblePoints);
+    auto session(sessionpoints);
+    //QString str = QString::number((all / 100) * session) + "%"
+    return QString::number((all / 100) * session) + "%";
+}
+
+QString backend::showPointsPercent()
+{
+    auto all(possiblePoints);
+    auto session(points);
+    //QString str = QString::number((all / 100) * session) + "%"
+    return QString::number((all / 100) * session) + "%";
+}
+
+QString backend::showPossiblePoints()
+{
+    return QString::number(possiblePoints);
+}
+
+QString backend::showSessionPoints()
+{
+    return QString::number(sessionpoints);
+}
+
+QString backend::showPoints()
+{
+    return QString::number(points);
+}
+
 QString backend::userAnswers()
 {
     return "Your answers: <br>" + formatter(1, "<br>", userWords) + "<br><br>"
@@ -177,35 +210,13 @@ bool backend::isRightWord(QString &word)      // returns true if passed word exi
         wordSet.erase(wordSet.find(word));
         userWords.push_back(word);
         ++points;
+        ++sessionpoints;
         return true;
 
     }else return false;
 }
 
 
-//QString backend::checkIfRight()
-//{
-//
-//    QString strtemp = dictionary.value(typedWord);
-//
-//
-//
-//    if(answeredWords.find(typedWord) == answeredWords.end())
-//        return "same";
-//
-//
-//    if(!strtemp.isEmpty() && typedWord != startWord)
-//    {
-//        userWords.push_back(typedWord + ":<br>" + strtemp + "<br><br>");
-//        answeredWords.insert(typedWord);
-//        return formatter(1, "<br>", strtemp);
-//
-//    } else if(typedWord == startWord)
-//
-//        return "same";
-//                else return "null";
-//
-//}
 
 QString backend::checkIfRight()
 {
@@ -213,7 +224,7 @@ QString backend::checkIfRight()
     if(isRightWord(typedWord))
     {
         QString strtemp = dictionary.value(typedWord);
-        lastWord = typedWord + ":<br>" + formatter(1, "<br>", strtemp);
+        lastWord = typedWord + ":<br>" + formatter(1, "<br>", strtemp);        
         return lastWord;
 
     }else if(typedWord == startWord || wordSet.find(typedWord) != wordSet.end())
@@ -237,10 +248,12 @@ bool backend::readyWork()
 void backend::initWord()
 {
    // qDebug() << "Проверим буфер: " + typedWord;
+    userWords.clear();
     typedWord.clear();
 
     timesWordCall = 0;
-    points = 0;
+    sessionpoints = 0;
+    possiblePoints = 0;
     startWord = list[randomBetween(0, list.size())]; 
 }
 

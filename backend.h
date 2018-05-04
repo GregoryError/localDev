@@ -22,7 +22,7 @@ public:
     QString lastWord;
     QString startWord;
     int timesWordCall;
-    unsigned int points;
+    unsigned int points = 0, sessionpoints = 0, possiblePoints = 0;
     bool ready = false;
     QString typedWord;
 
@@ -39,6 +39,11 @@ private:
 signals:
 
 public slots:
+    QString showSessionPercent();
+    QString showPointsPercent();
+    QString showPossiblePoints();
+    QString showSessionPoints();
+    QString showPoints();
     QString userAnswers();
     QString showLast();
     void clearTyped();
