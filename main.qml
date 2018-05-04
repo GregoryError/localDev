@@ -183,6 +183,7 @@ Window {
                            else listView1.visible = false
 
                            buttons.enabled = false
+                           //buttontxt.visible = false
                           // buttons.visible = false
 
 
@@ -191,7 +192,7 @@ Window {
 
                   }
 
-             }
+             }  
 
         }
 
@@ -221,6 +222,7 @@ Window {
         }
 
 
+
 Flickable{
     id: answerFlick
     interactive: true
@@ -229,7 +231,7 @@ Flickable{
     anchors.top: headLine.bottom
     anchors.bottom: panelOkBt.top
     contentWidth: answerPanel.width
-    contentHeight: answerPanel.height * 50
+    contentHeight: answerPanel.height * 100
     Rectangle{
         id: contentRect
         //anchors.centerIn: parent
@@ -525,8 +527,6 @@ Flickable{
         }
 
     }
-
-
 
 
 
