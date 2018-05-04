@@ -33,3 +33,38 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 
 HEADERS += \
     backend.h
+
+DISTFILES += \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/gradlew.bat \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/gradlew.bat \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradlew.bat \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat
+
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

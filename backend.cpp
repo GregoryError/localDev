@@ -37,7 +37,7 @@ backend::backend(QObject *parent) : QObject(parent)
             ++i;
         }
 
-        unsigned long int t = 0;
+        //unsigned long int t = 0;
        // for(auto &c:list)
        // {
        //     dictionary.insert(c, listTransl[t++]);
