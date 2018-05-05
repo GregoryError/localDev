@@ -460,6 +460,8 @@ Flickable{
             }
             onClicked: {
 
+                 backend.playNext()
+
                  backend.initWord()
 
                  roword.visible = true

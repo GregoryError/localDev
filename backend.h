@@ -11,6 +11,9 @@
 #include <QQmlContext>
 #include <QMap>
 
+#include <QSoundEffect>
+
+
 
 
 class backend : public QObject
@@ -27,6 +30,8 @@ public:
     unsigned int points = 0, sessionpoints = 0, possiblePoints = 0;
     bool ready = false;
     QString typedWord;
+    QSoundEffect *effect;
+    QSoundEffect *effect_bad;
 
 
 private:
@@ -41,6 +46,8 @@ private:
 signals:
 
 public slots:
+    void playNext();
+    void playRight();
 
     QString showSessionPercent();
     QString showPointsPercent();

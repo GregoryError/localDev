@@ -4,7 +4,11 @@
 backend::backend(QObject *parent) : QObject(parent)
 {
 
+    effect = new QSoundEffect;
 
+    effect_bad = new QSoundEffect;
+    effect_bad->setSource(QUrl::fromLocalFile(":/zumer.wav"));
+    effect_bad->setVolume(0.40f);
 
 //==================================================================================
     QFile in(":/ENG.txt");
@@ -149,10 +153,20 @@ int backend::randomBetween(int low, int high)
     return (qrand() % ((high + 1) - low) + low);
 }
 
+void backend::playNext()
+{
+    effect->setSource(QUrl::fromLocalFile(":/test.wav"));
+    effect->setVolume(0.60f);
+    effect->play();
+}
 
+void backend::playRight()
+{
 
-
-
+    effect->setSource(QUrl::fromLocalFile(":/rightSound.wav"));
+    effect->setVolume(0.80f);
+    effect->play();
+}
 
 QString backend::showSessionPercent()
 {
@@ -217,27 +231,37 @@ bool backend::isRightWord(QString &word)      // returns true if passed word exi
     {
         wordSet.erase(wordSet.find(word));
         userWords.push_back(word);
+        playRight();
         ++points;
         ++sessionpoints;
         return true;
 
-    }else return false;
+    }else
+    {
+       // effect_bad->play();
+        return false;
+    }
 }
 
 
-
 QString backend::checkIfRight()
-{
+{  
 
     if(isRightWord(typedWord))
     {
         //QString strtemp = dictionary.value(typedWord);
         lastWord = typedWord; // + ":<br>" + formatter(1, "<br>", strtemp);
         return lastWord;
+    }else
 
-    }else if(typedWord == startWord || wordSet.find(typedWord) != wordSet.end())
-             return "same";
-                else return "null";
+        if(typedWord == startWord || wordSet.find(typedWord) != wordSet.end())
+        {
+
+            return "same";
+        }
+            else
+            return "null";
+
 
 }
 
